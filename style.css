@@ -1,0 +1,42 @@
+body {
+  /* background: linear-gradient(90deg, red, yellow); */
+  /* background: url("img/first.jpeg");
+  background-repeat: no-repeat; */
+  height: 100vh;
+}
+
+h1 {
+  color: salmon;
+}
+
+.jakarta {
+  color: orange;
+  font-size: 24px;
+}
+
+#text-red {
+  color: red;
+}
+
+.konten {
+  background-color: teal;
+  color: white;
+  width: 50%;
+  height: 100px;
+  padding: 10px;
+  margin: 100px;
+  border: 5px solid orange;
+  border-radius: 10px;
+  text-align: center;
+  line-height: 100px;
+}
+
+.konten:hover {
+  cursor: pointer;
+  background-color: orange;
+}
+
+.konten::first-letter {
+  font-size: 2rem;
+  color: red;
+}
