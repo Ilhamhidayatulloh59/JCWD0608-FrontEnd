@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animation</title>
+    <style>
+      body {
+        /* background: linear-gradient(45deg, red, green); */
+        /* background: radial-gradient(red, green, blue); */
+        /* background: conic-gradient(red, green, blue); */
+        min-height: 100vh;
+      }
+
+      .box {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        margin: 50px;
+        background-color: purple;
+        /* transform: translate(100px, 100px); */
+        /* transform: rotate(45deg); */
+        animation-name: example;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+      }
+
+      @keyframes example {
+        /* from {
+          background-color: purple;
+        }
+        to {
+          background-color: yellow;
+        } */
+        0% {
+          background-color: purple;
+          left: 0px;
+          top: 0px;
+        }
+        25% {
+          background-color: yellow;
+          left: 200px;
+          top: 0px;
+        }
+        50% {
+          background-color: blue;
+          left: 200px;
+          top: 200px;
+        }
+        75% {
+          background-color: green;
+          left: 0px;
+          top: 200px;
+        }
+        100% {
+          background-color: purple;
+          left: 0px;
+          top: 0px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box"></div>
+  </body>
+</html>
