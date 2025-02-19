@@ -6,7 +6,7 @@ import Motion from "./motion";
 
 export default function Hero() {
   return (
-    <div className="flex max-sm:justify-start max-sm:pt-3 flex-col md:flex-row gap-5 min-h-[calc(100vh-60px)]">
+    <div className="flex max-sm:justify-start max-sm:pt-3 flex-col md:flex-row gap-5 md:py-20 max-md:py-5">
       <div className="md:flex-1 flex flex-col md:justify-center gap-5 md:gap-10">
         <Motion direction="left">
           <div className="flex items-center gap-2">
