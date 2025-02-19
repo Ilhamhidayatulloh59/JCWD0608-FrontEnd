@@ -6,7 +6,7 @@ export default function Tools() {
   return (
     <div className="flex flex-col items-center gap-5">
       <Motion direction="right">
-        <h2 className="text-white dark:text-black text-lg sm:text-xl md:text-2xl font-bold">
+        <h2 className="text-white text-lg sm:text-xl md:text-2xl font-bold">
           Tools And Skills
         </h2>
       </Motion>
