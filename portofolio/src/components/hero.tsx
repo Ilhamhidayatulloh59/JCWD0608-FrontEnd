@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { TypeAnimation } from "./type";
+import TypeAnimation from "./type";
 import { SosialBtn } from "./sosmed";
 import { FaDiscord, FaInstagram, FaGithub } from "react-icons/fa6";
 import Motion from "./motion";

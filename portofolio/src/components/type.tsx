@@ -7,10 +7,10 @@ interface TypeAnimationProps {
   sequence: string[];
   delay?: number;
 }
-export const TypeAnimation: React.FC<TypeAnimationProps> = ({
+export default function TypeAnimations({
   sequence,
   delay = 1000,
-}) => {
+}: TypeAnimationProps) {
   const modifiedSequence: (string | number)[] = [];
 
   sequence.forEach((item, index) => {
@@ -31,4 +31,4 @@ export const TypeAnimation: React.FC<TypeAnimationProps> = ({
       cursor={true}
     />
   );
-};
+}
