@@ -1,10 +1,15 @@
 "use client";
 
-import { Field, Form, Formik, FormikProps } from "formik";
+import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik";
 import { useState } from "react";
 import * as yup from "yup";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Link from "next/link";
+import axios from "@/libs/axios";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { login } from "@/redux/userSlice";
+import { useRouter } from "next/navigation";
 
 const LoginSchema = yup.object().shape({
   email: yup
@@ -24,21 +29,47 @@ interface ILoginForm {
 
 export default function FormLogin() {
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+  const router = useRouter();
   const initialValues: ILoginForm = {
     email: "",
     password: "",
   };
+
+  const onLogin = async (
+    value: ILoginForm,
+    action: FormikHelpers<ILoginForm>
+  ) => {
+    try {
+      const res = await axios.get(
+        `/data/user?where=%60email%60%20%3D%20'${value.email}'%20AND%20%60password%60%20%3D%20'${value.password}'`
+      );
+      if (res.data?.length == 0) throw "Incorrect Email or Password !";
+      dispatch(
+        login({
+          objectId: res.data[0].objectId,
+          username: res.data[0].username,
+          email: res.data[0].email,
+        })
+      );
+      action.resetForm();
+      toast.success("Login Success !");
+      router.push("/");
+    } catch (err) {
+      console.log(err);
+      toast.error(err as string);
+    }
+  };
+
   return (
     <div className="mt-16">
       <Formik
         initialValues={initialValues}
         validationSchema={LoginSchema}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
+        onSubmit={onLogin}
       >
         {(props: FormikProps<ILoginForm>) => {
-          const { touched, errors } = props;
+          const { touched, errors, isSubmitting } = props;
           return (
             <Form className="flex flex-col gap-3">
               <div className="flex flex-col">
@@ -84,10 +115,11 @@ export default function FormLogin() {
               </div>
               <div className="flex flex-col md:flex-row mt-12 md:items-center">
                 <button
-                  className="w-20 text-white py-1 px-2 rounded-md bg-gray-600 text-sm"
+                  className="w-20 text-white py-1 px-2 rounded-md bg-gray-600 disabled:bg-gray-400 disabled:cursor-not-allowed text-sm"
                   type="submit"
+                  disabled={isSubmitting}
                 >
-                  Sign In
+                  {isSubmitting ? "Loading" : "Sign In"}
                 </button>
                 <p className="text-sm md:ml-6 mt-2 md:mt-0">
                   Create new account ?{" "}
