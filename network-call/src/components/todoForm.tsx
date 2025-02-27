@@ -1,5 +1,6 @@
 "use client";
 
+import { tagRevalidate } from "@/app/action";
 import axios from "axios";
 import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik";
 import { IoMdAdd } from "react-icons/io";
@@ -30,6 +31,7 @@ export default function TodoForm({ onReload }: IProps) {
         values
       );
       action.resetForm();
+      tagRevalidate("todo");
       onReload();
     } catch (err) {
       console.log(err);

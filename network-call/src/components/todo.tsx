@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import TodoItem from "./todoItem";
 import axios from "axios";
 import TodoForm from "./todoForm";
+import { tagRevalidate } from "@/app/action";
 
 export default function Todo() {
   const [todos, setTodos] = useState<ITodo[]>([]);
@@ -18,6 +19,7 @@ export default function Todo() {
         `https://snazzyfoot-us.backendless.app/api/data/todo/${objectId}`
       );
       onReload();
+      tagRevalidate("todo");
       // setTodos((prev) => prev.filter((item) => item.objectId !== objectId));
     } catch (err) {
       console.log(err);
@@ -30,6 +32,7 @@ export default function Todo() {
         `https://snazzyfoot-us.backendless.app/api/data/todo/${objectId}`,
         { isChecked: !isChecked }
       );
+      tagRevalidate("todo");
       onReload();
       // setTodos((prev) =>
       //   prev.map((todo) =>

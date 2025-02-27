@@ -1,4 +1,5 @@
 import { ITodo } from "@/app/type";
+import { useRouter } from "next/navigation";
 import { MdDeleteOutline } from "react-icons/md";
 
 interface IProps {
@@ -8,9 +9,13 @@ interface IProps {
 }
 
 export default function TodoItem({ todo, deleteTodo, doneTodo }: IProps) {
+  const router = useRouter();
   return (
-    <div className="group flex items-center justify-between p-4 text-xl bg-white dark:bg-gray-200 transition">
-      <span className={`${todo.isChecked && "line-through text-gray-500"}`}>
+    <div className="group cursor-pointer flex items-center justify-between p-4 text-xl bg-white dark:bg-gray-200 transition">
+      <span
+        onClick={() => router.push(`/${todo.objectId}`)}
+        className={`${todo.isChecked && "line-through text-gray-500"}`}
+      >
         {todo.desc}
       </span>
       <div className="flex gap-3 items-center">

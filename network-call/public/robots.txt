@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /about
+
+# Host
+Host: https://portofoliome.com
+
+# Sitemaps
+Sitemap: https://portofoliome.com/sitemap.xml
