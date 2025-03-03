@@ -1,10 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { UserState } from "@/type";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { logout } from "@/redux/userSlice";
+import { useRouter } from "next/navigation";
 
 const Avatar = ({ user }: { user: UserState | null }) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const onLogout = async () => {
+    await axios.get("/api/auth/logout");
+    dispatch(logout());
+    router.push("/login");
+  };
 
   const toggleDropdown = () => setDropdownOpen((prev) => !prev);
 
@@ -68,7 +79,10 @@ const Avatar = ({ user }: { user: UserState | null }) => {
               </button>
             </li>
             <li>
-              <button className="block w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-600 dark:text-red-400">
+              <button
+                onClick={onLogout}
+                className="block w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-600 dark:text-red-400"
+              >
                 Logout
               </button>
             </li>
