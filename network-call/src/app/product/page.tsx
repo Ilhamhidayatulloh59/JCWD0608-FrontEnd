@@ -3,9 +3,6 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Product",
   description: "Page Product",
-  openGraph: {
-    url: ""
-  }
 };
 
 export default function Page() {
