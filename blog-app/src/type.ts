@@ -3,3 +3,9 @@ export interface UserState {
   name: string;
   email: string;
 }
+
+export interface BlogInput {
+  title: string;
+  category: string;
+  content: string;
+}

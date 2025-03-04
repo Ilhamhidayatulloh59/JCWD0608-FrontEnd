@@ -1,7 +1,10 @@
+import Wrapper from "@/components/wrapper";
+import BlogForm from "./_components";
+
 export default function Page() {
   return (
-    <div>
-      <h1>Dashboard</h1>
-    </div>
+    <Wrapper>
+      <BlogForm />
+    </Wrapper>
   );
 }
