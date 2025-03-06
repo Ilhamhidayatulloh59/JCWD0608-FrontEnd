@@ -1,15 +1,12 @@
 import Card from "@/components/card";
 import Wrapper from "@/components/wrapper";
+import { IBlog } from "@/type";
 
-export default function Home() {
-  const obj = {
-    category: "News",
-    title: "Title Blog",
-    thumbnail:
-      "https://equaltent-us.backendless.app/api/files/blog/blog-lodeh.webp",
-    author: { name: "Name Author", email: "email@gmail.com" },
-  };
-  const data = [obj, obj, obj, obj];
+export default async function Home() {
+  const res = await fetch(
+    "https://equaltent-us.backendless.app/api/data/Blogs?loadRelations=author"
+  );
+  const data: IBlog[] = await res.json();
   return (
     <div>
       <Wrapper>
@@ -23,6 +20,7 @@ export default function Home() {
                   thumbnail={item.thumbnail}
                   name={item.author.name}
                   email={item.author.email}
+                  objectId={item.objectId}
                 />
               </div>
             );

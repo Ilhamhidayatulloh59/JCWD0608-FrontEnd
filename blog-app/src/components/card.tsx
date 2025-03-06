@@ -7,6 +7,7 @@ interface ICardBlog {
   email: string;
   name: string;
   category: string;
+  objectId: string;
 }
 
 export default function Card({
@@ -15,6 +16,7 @@ export default function Card({
   name,
   email,
   category,
+  objectId
 }: ICardBlog) {
   return (
     <div className="bg-white border border-gray-200 rounded-lg shadow w-full">
@@ -56,7 +58,7 @@ export default function Card({
           </div>
         </div>
         <Link
-          href={`/blog`}
+          href={`/blog/${objectId}`}
           className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-teal-700 rounded-lg hover:bg-teal-800 focus:ring-4 focus:outline-none focus:ring-teal-300 dark:bg-teal-600 dark:hover:bg-teal-700 dark:focus:ring-teal-800"
         >
           Read more

@@ -72,6 +72,7 @@ const Avatar = ({ user }: { user: UserState | null }) => {
           <ul className="py-1">
             <li>
               <button
+                onClick={() => router.push("/dashboard")}
                 className="block w-full px-4 py-2 text
                 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
               >
