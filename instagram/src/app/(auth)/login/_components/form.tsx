@@ -5,6 +5,7 @@ import { useState } from "react";
 import * as yup from "yup";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Image from "next/image";
+import { signIn } from "next-auth/react";
 
 const LoginSchema = yup.object().shape({
   email: yup.string().email("Format email salah").required("email wajib diisi"),
@@ -31,8 +32,13 @@ export default function FormLogin() {
     action: FormikHelpers<ILoginForm>
   ) => {
     try {
-      console.log(value);
+      const data = await signIn("credentials", {
+        email: value.email,
+        password: value.password,
+        redirectTo: "/",
+      });
       action.resetForm();
+      console.log(data);
     } catch (err) {
       console.log(err);
     }

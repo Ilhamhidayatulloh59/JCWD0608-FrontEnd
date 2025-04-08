@@ -1,9 +1,9 @@
 import Image from "next/image";
-import { IPost } from "./data";
 import { MdVerified } from "react-icons/md";
 import { AiOutlineHeart } from "react-icons/ai";
 import { IoPaperPlaneOutline, IoBookmarkOutline } from "react-icons/io5";
 import { GoKebabHorizontal, GoComment } from "react-icons/go";
+import { IPost } from "@/types/post";
 
 interface IProps {
   post: IPost;
@@ -16,7 +16,7 @@ export default function CardPost({ post }: IProps) {
         <div className="flex py-3 items-center gap-3">
           <div className="w-10 h-10 rounded-full overflow-hidden">
             <Image
-              src={post.user.profile_pic}
+              src={post.user.avatar || "https://res.cloudinary.com/dn6uglajh/image/upload/v1733990935/blank-image_yfczs3.jpg"}
               alt={post.user.username}
               width={40}
               height={40}
@@ -36,7 +36,7 @@ export default function CardPost({ post }: IProps) {
       </div>
       <div className="rounded-sm overflow-hidden">
         <Image
-          src={post.image_url}
+          src={post.imageUrl}
           alt={post.user.username + "post"}
           width={500}
           height={500}
@@ -60,7 +60,7 @@ export default function CardPost({ post }: IProps) {
             <MdVerified />
           </span>
         </div>
-        <div className="text-sm font-normal">{post.content}</div>
+        <div className="text-sm font-normal">{post.caption}</div>
       </div>
     </div>
   );

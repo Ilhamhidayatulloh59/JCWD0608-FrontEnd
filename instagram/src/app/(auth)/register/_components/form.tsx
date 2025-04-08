@@ -5,6 +5,8 @@ import { useState } from "react";
 import * as yup from "yup";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Image from "next/image";
+import axios from "@/lib/axios";
+import { toast } from "react-toastify";
 
 const RegisterSchema = yup.object().shape({
   email: yup.string().email("Format email salah").required("email wajib diisi"),
@@ -37,7 +39,8 @@ export default function FormRegister() {
     action: FormikHelpers<IRegisterForm>
   ) => {
     try {
-      console.log(value);
+      const { data } = await axios.post("/auth", value);
+      toast.success(data.message);
       action.resetForm();
     } catch (err) {
       console.log(err);

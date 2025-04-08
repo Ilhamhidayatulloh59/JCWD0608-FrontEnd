@@ -1,7 +1,11 @@
+import axios from "@/lib/axios";
 import CardPost from "./card";
-import { posts } from "./data";
+import { IPost } from "@/types/post";
 
-export default function PostList() {
+export default async function PostList() {
+  const { data } = await axios.get("/posts");
+  const posts: IPost[] = data.posts;
+
   return (
     <section>
       {posts.map((item, idx) => {
