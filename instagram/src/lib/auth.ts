@@ -1,29 +1,14 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import axios from "./axios";
 import { Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
     Credentials({
-      credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
-      },
-      authorize: async (credentials) => {
-        const { data } = await axios.post("/auth/login", credentials);
-
-        const user = data.data;
-
-        return {
-          id: user.id,
-          email: user.email,
-          username: user.username,
-          fullname: user.fullname,
-          avatar: user.avatar,
-          accessToken: data.access_token,
-        };
+      async authorize(user) {
+        if (user) return user;
+        return null;
       },
     }),
   ],

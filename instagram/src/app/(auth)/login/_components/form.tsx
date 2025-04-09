@@ -6,6 +6,9 @@ import * as yup from "yup";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
+import axios from "@/lib/axios";
+import { toast } from "react-toastify";
+import { AxiosError } from "axios";
 
 const LoginSchema = yup.object().shape({
   email: yup.string().email("Format email salah").required("email wajib diisi"),
@@ -32,15 +35,24 @@ export default function FormLogin() {
     action: FormikHelpers<ILoginForm>
   ) => {
     try {
-      const data = await signIn("credentials", {
-        email: value.email,
-        password: value.password,
+      const { data } = await axios.post("/auth/login", value);
+      const user = data.data;
+
+      await signIn("credentials", {
         redirectTo: "/",
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        fullname: user.fullname,
+        avatar: user.avatar ?? "",
+        accessToken: data.access_token,
       });
       action.resetForm();
-      console.log(data);
     } catch (err) {
       console.log(err);
+      if (err instanceof AxiosError) {
+        toast.error(err.response?.data?.message);
+      }
     }
   };
 
