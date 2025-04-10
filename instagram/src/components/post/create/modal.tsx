@@ -1,10 +1,41 @@
+"use client";
+
 import { MdClose } from "react-icons/md";
 import ImageUploader from "./uploader";
 import PostDescription from "./desc";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import axios from "@/lib/axios";
+import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
+import { useModal } from "@/context/modal";
+
+interface IValue {
+  caption: string;
+  image: null | File | Blob;
+}
 
 export default function CreatePostModal({ onClose }: { onClose: () => void }) {
+  const { data } = useSession();
+  const { closeModal } = useModal();
+  const onPosting = async (value: IValue) => {
+    try {
+      const formData = new FormData();
+      formData.append("caption", value.caption);
+      formData.append("image", value.image as Blob);
+
+      await axios.post("/posts/cloud", formData, {
+        headers: {
+          Authorization: `Bearer ${data?.accessToken}`,
+        },
+      });
+      closeModal();
+      toast.success("Postingan berhasil di upload");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center">
       <Formik
@@ -16,7 +47,7 @@ export default function CreatePostModal({ onClose }: { onClose: () => void }) {
           image: Yup.mixed().required(),
         })}
         onSubmit={(values) => {
-          console.log("Postingan:", values);
+          onPosting(values);
         }}
       >
         {({ setFieldValue, values }) => (
