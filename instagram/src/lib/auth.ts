@@ -4,6 +4,7 @@ import { Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
+  trustHost: true,
   providers: [
     Credentials({
       async authorize(user) {
